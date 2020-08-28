@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@inrupt/lit-generated-vocab-common": "^0.3.11",
-    "@inrupt/solid-ui-react": "^0.9.3-chorets-declarations-228829519-275.0",
+    "@inrupt/solid-ui-react": "^0.9.7",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "next": "9.5.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"

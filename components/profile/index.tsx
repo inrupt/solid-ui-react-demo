@@ -19,16 +19,51 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useSession, Text, CombinedDataProvider } from "@inrupt/solid-ui-react";
-import { FOAF } from "@inrupt/lit-generated-vocab-common";
+import {
+  useSession,
+  Text,
+  Image,
+  CombinedDataProvider,
+} from "@inrupt/solid-ui-react";
+
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Container,
+  Typography,
+} from "@material-ui/core";
+
+import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 
 export default function LoginForm(): React.ReactElement {
   const { session } = useSession();
   const { webId } = session.info;
 
   return (
-    <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
-      <Text property={FOAF.name.iri.value} />
-    </CombinedDataProvider>
+    <Container fixed>
+      <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
+        <Card style={{ maxWidth: 350 }}>
+          <CardActionArea
+            style={{
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            <Image property="http://www.w3.org/2006/vcard/ns#hasPhoto" />
+          </CardActionArea>
+
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              <Text property={FOAF.name.iri.value} />
+            </Typography>
+
+            <Typography variant="body2" color="textSecondary" component="p">
+              <Text property={VCARD.organization_name.iri.value} />
+            </Typography>
+          </CardContent>
+        </Card>
+      </CombinedDataProvider>
+    </Container>
   );
 }

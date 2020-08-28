@@ -21,20 +21,34 @@
 
 import { useState } from "react";
 import { LoginButton } from "@inrupt/solid-ui-react";
+import { Button, TextField, FormGroup, Container } from "@material-ui/core";
 
 export default function LoginForm(): React.ReactElement {
   const [idp, setIdp] = useState("https://inrupt.net");
 
   return (
-    <div>
-      <input
-        placeholder="Identity Provider"
-        type="url"
-        value={idp}
-        onChange={(e) => setIdp(e.target.value)}
-      />
-
-      <LoginButton oidcIssuer={idp} redirectUrl="https://localhost:3000" />
-    </div>
+    <Container fixed>
+      <FormGroup>
+        <TextField
+          label="Identity Provider"
+          placeholder="Identity Provider"
+          type="url"
+          value={idp}
+          onChange={(e) => setIdp(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <LoginButton
+                oidcIssuer={idp}
+                redirectUrl="https://localhost:3000"
+              >
+                <Button variant="contained" color="primary">
+                  Log&nbsp;in
+                </Button>
+              </LoginButton>
+            ),
+          }}
+        />
+      </FormGroup>
+    </Container>
   );
 }
