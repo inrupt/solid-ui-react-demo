@@ -18,22 +18,3 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-import { SessionProvider } from "@inrupt/solid-ui-react";
-
-/* eslint react/jsx-props-no-spreading: 0 */
-
-interface IApp {
-  Component: React.ComponentType<any>;
-  pageProps: any;
-}
-
-export default function App(props: IApp): React.ReactElement {
-  const { Component, pageProps } = props;
-
-  return (
-    <SessionProvider>
-      <Component {...pageProps} />
-    </SessionProvider>
-  );
-}
