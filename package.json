@@ -1,0 +1,30 @@
+{
+  "name": "test-react-sdk-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "lint": "eslint pages components",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@inrupt/lit-generated-vocab-common": "^0.3.11",
+    "@inrupt/solid-ui-react": "^0.9.3-chorets-declarations-228829519-275.0",
+    "next": "9.5.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@inrupt/eslint-config-base": "0.0.4",
+    "@inrupt/eslint-config-react": "0.0.4",
+    "@types/node": "^14.6.1",
+    "@types/react": "^16.9.48",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "typescript": "^4.0.2"
+  }
+}
