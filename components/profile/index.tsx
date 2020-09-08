@@ -19,49 +19,107 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import { useState } from "react";
+
 import {
   useSession,
-  Text,
-  Image,
   CombinedDataProvider,
+  Image,
+  Text,
+  Value,
 } from "@inrupt/solid-ui-react";
 
 import {
+  Button,
   Card,
+  CardActions,
   CardActionArea,
   CardContent,
   Container,
   Typography,
 } from "@material-ui/core";
 
+import BusinessIcon from "@material-ui/icons/Business";
+
 import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 
 export default function LoginForm(): React.ReactElement {
   const { session } = useSession();
   const { webId } = session.info;
+  const [editing, setEditing] = useState(false);
 
   return (
     <Container fixed>
       <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
-        <Card style={{ maxWidth: 350 }}>
+        <Card style={{ maxWidth: 480 }}>
           <CardActionArea
             style={{
               justifyContent: "center",
               display: "flex",
             }}
           >
-            <Image property={VCARD.organization_name.iri.value} />
+            <Image property={VCARD.hasPhoto.iri.value} width={480} />
           </CardActionArea>
 
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              <Text property={FOAF.name.iri.value} />
+              <Text property={FOAF.name.iri.value} edit={editing} autosave />
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <BusinessIcon />
+
+              <Text
+                property={VCARD.organization_name.iri.value}
+                edit={editing}
+                autosave
+              />
             </Typography>
 
             <Typography variant="body2" color="textSecondary" component="p">
-              <Text property={VCARD.organization_name.iri.value} />
+              {"Born: "}
+              <Value
+                property={VCARD.bday.iri.value}
+                dataType="datetime"
+                edit={editing}
+                autosave
+              />
             </Typography>
           </CardContent>
+
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h3">
+              Email Addresses
+            </Typography>
+
+            <p>Table Here</p>
+          </CardContent>
+
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h3">
+              Phone Numbers
+            </Typography>
+
+            <p>Table Here</p>
+          </CardContent>
+
+          <CardActions>
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => setEditing(!editing)}
+            >
+              Toggle Edit
+            </Button>
+          </CardActions>
         </Card>
       </CombinedDataProvider>
     </Container>
