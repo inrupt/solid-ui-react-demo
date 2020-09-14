@@ -32,7 +32,7 @@ export default function App(props: IApp): React.ReactElement {
   const { Component, pageProps } = props;
 
   return (
-    <SessionProvider>
+    <SessionProvider sessionId="react-sdk-example-project">
       <Component {...pageProps} />
     </SessionProvider>
   );
