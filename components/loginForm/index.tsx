@@ -19,12 +19,17 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LoginButton } from "@inrupt/solid-ui-react";
 import { Button, TextField, FormGroup, Container } from "@material-ui/core";
 
 export default function LoginForm(): React.ReactElement {
   const [idp, setIdp] = useState("https://inrupt.net");
+  const [currentUrl, setCurrentUrl] = useState("https://localhost:3000");
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, [setCurrentUrl]);
 
   return (
     <Container fixed>
@@ -37,10 +42,7 @@ export default function LoginForm(): React.ReactElement {
           onChange={(e) => setIdp(e.target.value)}
           InputProps={{
             endAdornment: (
-              <LoginButton
-                oidcIssuer={idp}
-                redirectUrl="https://localhost:3000"
-              >
+              <LoginButton oidcIssuer={idp} redirectUrl={currentUrl}>
                 <Button variant="contained" color="primary">
                   Log&nbsp;in
                 </Button>
