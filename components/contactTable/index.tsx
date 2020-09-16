@@ -68,7 +68,7 @@ export default function ContactTable({
     // TODO update local state or trigger re-fetching dataset
   };
 
-  const CustomCell = ({ row: { index } }: { row: { index: number } }) => {
+  const DeleteButtonCell = ({ row: { index } }: { row: { index: number } }) => {
     return (
       <Button color="secondary" onClick={() => removePhone(index)}>
         Delete
@@ -103,7 +103,7 @@ export default function ContactTable({
       />
       <TableColumn
         property={VCARD.value}
-        body={CustomCell}
+        body={DeleteButtonCell}
         dataType="url"
         header=""
       />
