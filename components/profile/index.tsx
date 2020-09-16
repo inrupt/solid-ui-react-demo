@@ -25,11 +25,13 @@ import {
   useSession,
   CombinedDataProvider,
   Image,
+  LogoutButton,
   Text,
   Value,
 } from "@inrupt/solid-ui-react";
 
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -43,6 +45,8 @@ import BusinessIcon from "@material-ui/icons/Business";
 
 import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 
+import ContactTable from "../contactTable";
+
 export default function LoginForm(): React.ReactElement {
   const { session } = useSession();
   const { webId } = session.info;
@@ -50,6 +54,13 @@ export default function LoginForm(): React.ReactElement {
 
   return (
     <Container fixed>
+      <Box style={{ marginBottom: 16, textAlign: "right" }}>
+        <LogoutButton>
+          <Button variant="contained" color="primary">
+            Log&nbsp;out
+          </Button>
+        </LogoutButton>
+      </Box>
       <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
         <Card style={{ maxWidth: 480 }}>
           <CardActionArea
@@ -100,7 +111,7 @@ export default function LoginForm(): React.ReactElement {
               Email Addresses
             </Typography>
 
-            <p>Table Here</p>
+            <ContactTable property={VCARD.hasEmail} />
           </CardContent>
 
           <CardContent>
@@ -108,7 +119,7 @@ export default function LoginForm(): React.ReactElement {
               Phone Numbers
             </Typography>
 
-            <p>Table Here</p>
+            <ContactTable property={VCARD.hasTelephone} />
           </CardContent>
 
           <CardActions>
