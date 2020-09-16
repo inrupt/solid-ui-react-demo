@@ -1,0 +1,8 @@
+.table {
+  text-align: left;
+  width: 100%;
+}
+
+.table tr td:last-child {
+  text-align: right;
+}
