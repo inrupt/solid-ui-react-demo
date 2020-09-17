@@ -20,6 +20,7 @@
  */
 
 import { RDF, VCARD } from "@inrupt/lit-generated-vocab-common";
+import { getLocalStore, LitTermRegistry } from "@solid/lit-term";
 import {
   getFetchedFrom,
   getThing,
@@ -81,8 +82,10 @@ export default function ContactTable({
       <TableColumn
         property={RDF.type}
         body={({ value }) => {
-          const shortValue = value.split("#").pop();
-          return <Typography>{shortValue || value}</Typography>;
+          const termRegistry = new LitTermRegistry(getLocalStore());
+          const label = termRegistry.lookupLabel(value, "en");
+          const comment = termRegistry.lookupComment(value, "en");
+          return <Typography title={comment}>{label || value}</Typography>;
         }}
         dataType="url"
         header={() => (
