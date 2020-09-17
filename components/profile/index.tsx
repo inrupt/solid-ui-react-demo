@@ -111,7 +111,7 @@ export default function LoginForm(): React.ReactElement {
               Email Addresses
             </Typography>
 
-            <ContactTable property={VCARD.hasEmail} />
+            <ContactTable property={VCARD.hasEmail.value} edit={editing} />
           </CardContent>
 
           <CardContent>
@@ -119,7 +119,7 @@ export default function LoginForm(): React.ReactElement {
               Phone Numbers
             </Typography>
 
-            <ContactTable property={VCARD.hasTelephone} />
+            <ContactTable property={VCARD.hasTelephone.value} edit={editing} />
           </CardContent>
 
           <CardActions>

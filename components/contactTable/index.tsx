@@ -19,15 +19,20 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import { useState } from "react";
 import { RDF, VCARD } from "@inrupt/lit-generated-vocab-common";
 import { getLocalStore, LitTermRegistry } from "@solid/lit-term";
 import {
+  addUrl,
+  asUrl,
+  createThing,
   getFetchedFrom,
   getThing,
   getUrlAll,
   removeUrl,
   saveSolidDatasetAt,
   setThing,
+  setUrl,
   Url,
   UrlString,
 } from "@inrupt/solid-client";
@@ -38,14 +43,24 @@ import {
   useSession,
   useThing,
 } from "@inrupt/solid-ui-react";
-import { Button, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import styles from "./contactTable.module.css";
 
 export default function ContactTable({
+  edit,
   property,
 }: {
+  edit: boolean;
   property: Url | UrlString;
 }): React.ReactElement {
+  const [newContactType, setNewContactType] = useState(VCARD.Home.value);
+  const [newContactValue, setNewContactValue] = useState("");
   const { fetch } = useSession();
   const { dataset } = useDataset();
   const { thing: profile } = useThing();
@@ -54,62 +69,122 @@ export default function ContactTable({
     getThing(dataset, url)
   );
 
-  const saveHandler = async (newThing) => {
+  const saveHandler = async (newThing, datasetToUpdate) => {
     await saveSolidDatasetAt(
-      getFetchedFrom(dataset),
-      setThing(dataset, newThing),
+      getFetchedFrom(datasetToUpdate),
+      setThing(datasetToUpdate, newThing),
       { fetch }
     );
   };
 
-  const removePhone = async (index) => {
+  const addContactDetail = async () => {
+    const prefix = property === VCARD.hasTelephone.value ? "tel:" : "mailto:";
+    const newContactDetail = setUrl(createThing(), RDF.type, newContactType);
+    const newContactDetailWithValue = setUrl(
+      newContactDetail,
+      VCARD.value,
+      `${prefix}${newContactValue}`
+    );
+    const datasetWithContactDetail = setThing(
+      dataset,
+      newContactDetailWithValue
+    );
+    const newProfile = addUrl(
+      profile,
+      property,
+      asUrl(newContactDetailWithValue, getFetchedFrom(dataset))
+    );
+    await saveHandler(newProfile, datasetWithContactDetail);
+  };
+
+  const removeContactDetail = async (index) => {
     const contactDetailUrl = contactDetailUrls[index];
     const newProfile = removeUrl(profile, property, contactDetailUrl);
-    await saveHandler(newProfile);
+    await saveHandler(newProfile, dataset);
     // TODO update local state or trigger re-fetching dataset
   };
 
   const DeleteButtonCell = ({ row: { index } }: { row: { index: number } }) => {
     return (
-      <Button color="secondary" onClick={() => removePhone(index)}>
+      <Button color="secondary" onClick={() => removeContactDetail(index)}>
         Delete
       </Button>
     );
   };
 
+  const contactTypes = [
+    {
+      value: VCARD.Home.value,
+      label: VCARD.Home.label,
+    },
+    {
+      value: VCARD.Work.value,
+      label: VCARD.Work.label,
+    },
+  ];
+
   return (
-    <Table things={contactDetailThings} className={styles.table}>
-      <TableColumn
-        property={RDF.type}
-        body={({ value }) => {
-          const termRegistry = new LitTermRegistry(getLocalStore());
-          const label = termRegistry.lookupLabel(value, "en");
-          const comment = termRegistry.lookupComment(value, "en");
-          return <Typography title={comment}>{label || value}</Typography>;
-        }}
-        dataType="url"
-        header={() => (
-          <Typography>
-            <b>Type</b>
-          </Typography>
-        )}
-      />
-      <TableColumn
-        property={VCARD.value}
-        body={({ value }) => <Typography>{value}</Typography>}
-        dataType="url"
-        header={() => (
-          <Typography>
-            <b>Number</b>
-          </Typography>
-        )}
-      />
-      <TableColumn
-        property={VCARD.value}
-        body={DeleteButtonCell}
-        dataType="url"
-        header=""
-      />
-    </Table>
+    <>
+      <Table things={contactDetailThings} className={styles.table}>
+        <TableColumn
+          property={RDF.type}
+          body={({ value }) => {
+            const termRegistry = new LitTermRegistry(getLocalStore());
+            const label = termRegistry.lookupLabel(value, "en");
+            const comment = termRegistry.lookupComment(value, "en");
+            return <Typography title={comment}>{label || value}</Typography>;
+          }}
+          dataType="url"
+          header={() => (
+            <Typography>
+              <b>Type</b>
+            </Typography>
+          )}
+        />
+        <TableColumn
+          property={VCARD.value}
+          body={({ value }) => <Typography>{value}</Typography>}
+          dataType="url"
+          header={() => (
+            <Typography>
+              <b>Value</b>
+            </Typography>
+          )}
+        />
+        <TableColumn
+          property={VCARD.value}
+          body={DeleteButtonCell}
+          dataType="url"
+          header=""
+        />
+      </Table>
+      {edit && (
+        <>
+          <Typography gutterBottom>Add new contact</Typography>
+          <Box className={styles.newContactFields}>
+            <TextField
+              select
+              label="Type"
+              value={newContactType}
+              onChange={(e) => setNewContactType(e.target.value)}
+            >
+              {contactTypes.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              label="Value"
+              value={newContactValue}
+              onChange={(e) => setNewContactValue(e.target.value)}
+            />
+            <Button color="primary" onClick={addContactDetail}>
+              Add
+            </Button>
+          </Box>
+        </>
+      )}
+    </>
   );
 }
