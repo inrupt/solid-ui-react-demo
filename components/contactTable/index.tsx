@@ -65,9 +65,10 @@ export default function ContactTable({
   const { dataset } = useDataset();
   const { thing: profile } = useThing();
   const contactDetailUrls = getUrlAll(profile, property);
-  const contactDetailThings = contactDetailUrls.map((url) =>
-    getThing(dataset, url)
-  );
+  const contactDetailThings = contactDetailUrls.map((url) => ({
+    dataset,
+    thing: getThing(dataset, url),
+  }));
 
   const saveHandler = async (newThing, datasetToUpdate) => {
     await saveSolidDatasetAt(
@@ -97,16 +98,17 @@ export default function ContactTable({
     await saveHandler(newProfile, datasetWithContactDetail);
   };
 
-  const removeContactDetail = async (index) => {
-    const contactDetailUrl = contactDetailUrls[index];
+  const removeRow = async (rowThing) => {
+    const contactDetailUrl = asUrl(rowThing);
     const newProfile = removeUrl(profile, property, contactDetailUrl);
     await saveHandler(newProfile, dataset);
     // TODO update local state or trigger re-fetching dataset
   };
 
-  const DeleteButtonCell = ({ row: { index } }: { row: { index: number } }) => {
+  const DeleteButtonCell = () => {
+    const { thing: rowThing } = useThing();
     return (
-      <Button color="secondary" onClick={() => removeContactDetail(index)}>
+      <Button color="secondary" onClick={() => removeRow(rowThing)}>
         Delete
       </Button>
     );
