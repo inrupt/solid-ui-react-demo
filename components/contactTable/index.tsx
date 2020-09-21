@@ -42,6 +42,7 @@ import {
   useDataset,
   useSession,
   useThing,
+  Value,
 } from "@inrupt/solid-ui-react";
 import {
   Box,
@@ -129,7 +130,7 @@ export default function ContactTable({
     <>
       <Table things={contactDetailThings} className={styles.table}>
         <TableColumn
-          property={RDF.type}
+          property={RDF.type.value}
           body={({ value }) => {
             const termRegistry = new LitTermRegistry(getLocalStore());
             const label = termRegistry.lookupLabel(value, "en");
@@ -144,8 +145,17 @@ export default function ContactTable({
           )}
         />
         <TableColumn
-          property={VCARD.value}
-          body={({ value }) => <Typography>{value}</Typography>}
+          property={VCARD.value.value}
+          body={() => (
+            <Typography>
+              <Value
+                edit={edit}
+                autosave
+                dataType="url"
+                property={VCARD.value.value}
+              />
+            </Typography>
+          )}
           dataType="url"
           header={() => (
             <Typography>
@@ -154,7 +164,7 @@ export default function ContactTable({
           )}
         />
         <TableColumn
-          property={VCARD.value}
+          property={VCARD.value.value}
           body={DeleteButtonCell}
           dataType="url"
           header=""
