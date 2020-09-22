@@ -11,7 +11,7 @@
   "dependencies": {
     "@inrupt/lit-generated-vocab-common": "^0.3.11",
     "@inrupt/solid-client": "^0.4.0",
-    "@inrupt/solid-ui-react": "^0.11.4-featurepass-datasets-to-table-261424691-355.0",
+    "@inrupt/solid-ui-react": "^1.1.1-chorecleanup-and-docs-267155298-372.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@solid/lit-term": "^0.4.1",
