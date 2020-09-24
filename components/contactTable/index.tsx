@@ -19,7 +19,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RDF, VCARD } from "@inrupt/lit-generated-vocab-common";
 import { getLocalStore, LitTermRegistry } from "@solid/lit-term";
 import {
@@ -37,9 +37,9 @@ import {
   UrlString,
 } from "@inrupt/solid-client";
 import {
+  DatasetContext,
   Table,
   TableColumn,
-  useDataset,
   useSession,
   useThing,
   Value,
@@ -63,7 +63,7 @@ export default function ContactTable({
   const [newContactType, setNewContactType] = useState(VCARD.Home.value);
   const [newContactValue, setNewContactValue] = useState("");
   const { fetch } = useSession();
-  const { dataset } = useDataset();
+  const { dataset, setDataset } = useContext(DatasetContext);
   const { thing: profile } = useThing();
   const contactDetailUrls = getUrlAll(profile, property);
   const contactDetailThings = contactDetailUrls.map((url) => ({
@@ -72,11 +72,12 @@ export default function ContactTable({
   }));
 
   const saveHandler = async (newThing, datasetToUpdate) => {
-    await saveSolidDatasetAt(
+    const savedDataset = await saveSolidDatasetAt(
       getFetchedFrom(datasetToUpdate),
       setThing(datasetToUpdate, newThing),
       { fetch }
     );
+    setDataset(savedDataset);
   };
 
   const addContactDetail = async () => {
@@ -103,7 +104,6 @@ export default function ContactTable({
     const contactDetailUrl = asUrl(rowThing);
     const newProfile = removeUrl(profile, property, contactDetailUrl);
     await saveHandler(newProfile, dataset);
-    // TODO update local state or trigger re-fetching dataset
   };
 
   const DeleteButtonCell = () => {
@@ -153,6 +153,9 @@ export default function ContactTable({
                 autosave
                 dataType="url"
                 property={VCARD.value.value}
+                onSave={(savedDataset) => {
+                  setDataset(savedDataset);
+                }}
               />
             </Typography>
           )}
