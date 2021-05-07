@@ -26,7 +26,7 @@ import {
   addUrl,
   asUrl,
   createThing,
-  getFetchedFrom,
+  getSourceUrl,
   getThing,
   getUrlAll,
   removeUrl,
@@ -63,7 +63,7 @@ export default function ContactTable({
   const [newContactType, setNewContactType] = useState(VCARD.Home.value);
   const [newContactValue, setNewContactValue] = useState("");
   const { fetch } = useSession();
-  const { dataset, setDataset } = useContext(DatasetContext);
+  const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
   const { thing: profile } = useThing();
   const contactDetailUrls = getUrlAll(profile, property);
   const contactDetailThings = contactDetailUrls.map((url) => ({
@@ -73,7 +73,7 @@ export default function ContactTable({
 
   const saveHandler = async (newThing, datasetToUpdate) => {
     const savedDataset = await saveSolidDatasetAt(
-      getFetchedFrom(datasetToUpdate),
+      getSourceUrl(datasetToUpdate),
       setThing(datasetToUpdate, newThing),
       { fetch }
     );
@@ -95,7 +95,7 @@ export default function ContactTable({
     const newProfile = addUrl(
       profile,
       property,
-      asUrl(newContactDetailWithValue, getFetchedFrom(dataset))
+      asUrl(newContactDetailWithValue, getSourceUrl(dataset))
     );
     await saveHandler(newProfile, datasetWithContactDetail);
   };

@@ -29,6 +29,5 @@ export default function Home(): React.ReactElement {
   if (!session.info.isLoggedIn) {
     return <LoginForm />;
   }
-
   return <Profile />;
 }
