@@ -27,7 +27,6 @@ import {
   Image,
   LogoutButton,
   Text,
-  Value,
 } from "@inrupt/solid-ui-react";
 
 import {
@@ -46,6 +45,7 @@ import BusinessIcon from "@material-ui/icons/Business";
 import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 
 import ContactTable from "../contactTable";
+import BirthdateRow from "../birthdateRow";
 
 export default function LoginForm(): React.ReactElement {
   const { session } = useSession();
@@ -94,15 +94,18 @@ export default function LoginForm(): React.ReactElement {
                 autosave
               />
             </Typography>
-
-            <Typography variant="body2" color="textSecondary" component="p">
-              {"Born: "}
-              <Value
-                property={VCARD.bday.iri.value}
-                dataType="datetime"
-                edit={editing}
-                autosave
-              />
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                width: "100%",
+              }}
+            >
+              Born:&nbsp;
+              <BirthdateRow edit={editing} setEdit={setEditing} />
             </Typography>
           </CardContent>
 
