@@ -42,7 +42,7 @@ export default function BirthdateRow({ edit, setEdit }) {
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
   const datasetUrl = getSourceUrl(dataset);
   const { fetch } = useSession();
-  const { thing } = useThing(`${datasetUrl}#me`);
+  const { thing } = useThing(datasetUrl);
   const birthdate = thing && getDatetime(thing, VCARD.bday);
   const [dateValue, setDateValue] = useState(
     birthdate?.toISOString().slice(0, -8)
