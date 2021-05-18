@@ -1,0 +1,10 @@
+.birthdateRowWrapper {
+  display: inline-flex;
+  align-items: baseline;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.alert {
+  color: #f50057;
+}
