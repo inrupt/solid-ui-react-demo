@@ -42,9 +42,11 @@ export default function BirthdateRow({ edit, setEdit }) {
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
   const datasetUrl = getSourceUrl(dataset);
   const { fetch } = useSession();
-  const { thing } = useThing(datasetUrl);
-  const birthdate = thing && getDatetime(thing, VCARD.bday.iri.value);
-  const [dateValue, setDateValue] = useState(birthdate?.toISOString().slice(0, -8));
+  const { thing } = useThing(`${datasetUrl}#me`);
+  const birthdate = thing && getDatetime(thing, VCARD.bday);
+  const [dateValue, setDateValue] = useState(
+    birthdate?.toISOString().slice(0, -8)
+  );
   const [dateType, setDateType] = useState(true);
   const [invalidForm, setInvalidForm] = useState(false);
 
@@ -70,7 +72,7 @@ export default function BirthdateRow({ edit, setEdit }) {
   async function removeBirthdate() {
     const newProfile = setThing(
       dataset,
-      removeDatetime(thing, VCARD.bday.iri.value, birthdate)
+      removeDatetime(thing, VCARD.bday, birthdate)
     );
     const savedDataset = await saveSolidDatasetAt(datasetUrl, newProfile, {
       fetch,
@@ -81,7 +83,7 @@ export default function BirthdateRow({ edit, setEdit }) {
   async function addBirthdate(date) {
     const newProfile = setThing(
       dataset,
-      setDatetime(thing, VCARD.bday.iri.value, new Date(date))
+      setDatetime(thing, VCARD.bday, new Date(date))
     );
     const savedDataset = await saveSolidDatasetAt(datasetUrl, newProfile, {
       fetch,
@@ -91,16 +93,20 @@ export default function BirthdateRow({ edit, setEdit }) {
 
   return edit || birthdate ? (
     <span className={styles.birthdateRowWrapper}>
-        {(dateType || !dateType && !edit) && <Value
-          property={VCARD.bday.iri.value}
+      {(dateType || (!dateType && !edit)) && (
+        <Value
+          property={VCARD.bday}
           dataType="datetime"
+          inputProps={{ name: "birthdate-input" }}
           edit={edit}
           autosave
-        />}
-        {edit && !dateType && (
-          // in case input type 'datetime-local' is not supported by the browser
+        />
+      )}
+      {edit && !dateType && (
+        // in case input type 'datetime-local' is not supported by the browser
         <>
           <input
+            name="birthdate-input"
             type="text"
             value={dateValue}
             pattern={"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"}

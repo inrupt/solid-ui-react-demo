@@ -101,10 +101,9 @@ export default function LoginForm(): React.ReactElement {
               style={{
                 display: "flex",
                 alignItems: "baseline",
-                width: "100%",
               }}
             >
-              Born:&nbsp;
+              <label htmlFor="birthdate-input">Born:&nbsp;</label>
               <BirthdateRow edit={editing} setEdit={setEditing} />
             </Typography>
           </CardContent>
