@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Inrupt Inc.
+ * Copyright 2021 Inrupt Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal in
@@ -19,15 +19,27 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useSession } from "@inrupt/solid-ui-react/dist";
-import LoginForm from "../components/loginForm";
-import Profile from "../components/profile";
+import { createStyles } from "@solid/lit-prism-patterns";
 
-export default function Home(): React.ReactElement {
-  const { session } = useSession();
+const styles = (theme) =>
+  createStyles(theme, ["appLayout", "headerBanner", "icons"], {
+    loginFormContainer: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "start",
+      justifyContent: "center",
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        minWidth: "max-content",
+      },
+      "&>div": {
+        flexDirection: "row",
+        alignItems: "baseline",
+        "&>label": {
+          marginRight: "1rem",
+        },
+      },
+    },
+  });
 
-  if (!session.info.isLoggedIn) {
-    return <LoginForm />;
-  }
-  return <Profile />;
-}
+export default styles;

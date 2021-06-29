@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Inrupt Inc.
+ * Copyright 2021 Inrupt Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal in
@@ -25,6 +25,7 @@ import {
   Value,
   DatasetContext,
 } from "@inrupt/solid-ui-react";
+import { makeStyles, createStyles } from "@inrupt/prism-react-components";
 import { Button } from "@material-ui/core";
 import {
   getDatetime,
@@ -34,7 +35,9 @@ import {
   setThing,
 } from "@inrupt/solid-client";
 import { VCARD } from "@inrupt/lit-generated-vocab-common";
-import styles from "./birthdateRow.module.css";
+import styles from "./styles";
+
+const useStyles = makeStyles((theme) => createStyles(styles(theme)));
 
 export default function BirthdateRow({ edit, setEdit }) {
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
@@ -42,6 +45,7 @@ export default function BirthdateRow({ edit, setEdit }) {
   const { fetch } = useSession();
   const { thing } = useThing(datasetUrl);
   const birthdate = thing && getDatetime(thing, VCARD.bday);
+  const classes = useStyles();
 
   async function removeBirthdate() {
     const newProfile = setThing(
@@ -55,7 +59,7 @@ export default function BirthdateRow({ edit, setEdit }) {
   }
 
   return edit || birthdate ? (
-    <span className={styles.birthdateRowWrapper}>
+    <span className={classes.birthdateRowWrapper}>
       <Value
         property={VCARD.bday}
         dataType="datetime"
@@ -65,9 +69,9 @@ export default function BirthdateRow({ edit, setEdit }) {
       />
       {birthdate && !edit && (
         <Button
-          color={"secondary"}
+          color="secondary"
           onClick={() => removeBirthdate()}
-          className={styles.deleteButton}
+          className={classes.deleteButton}
         >
           Delete
         </Button>
