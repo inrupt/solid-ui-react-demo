@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url("../public/fontawesome-solid/fa-solid-900.eot"); /* IE9 Compat Modes */
+  src: url("../public/fontawesome-solid/fa-solid-900.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */ url("../public/fontawesome-solid/fa-solid-900.woff2") format("woff2"),
+    /* Modern Browsers */ url("../public/fontawesome-solid/fa-solid-900.woff")
+      format("woff"),
+    /* Modern Browsers */ url("../public/fontawesome-solid/fa-solid-900.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */
+      url("../public/fontawesome-solid/fa-solid-900.svg#fontawesome") format("svg"); /* Legacy iOS */
+}
+@font-face {
+  font-family: "Raleway-Medium";
+  src: url("../public/Raleway/Raleway-Medium.eot"); /* IE9 Compat Modes */
+  src: url("../public/Raleway/Raleway-Medium.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../public/Raleway/Raleway-Medium.otf") format("opentype"),
+    /* Open Type Font */ url("../public/Raleway/Raleway-Medium.svg") format("svg"),
+    /* Legacy iOS */ url("../public/Raleway/Raleway-Medium.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("../public/Raleway/Raleway-Medium.woff")
+      format("woff"),
+    /* Modern Browsers */ url("../public/Raleway/Raleway-Medium.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway-ExtraBold";
+  src: url("../public/Raleway/Raleway-ExtraBold.eot"); /* IE9 Compat Modes */
+  src: url("../public/Raleway/Raleway-ExtraBold.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("../public/Raleway/Raleway-ExtraBold.otf") format("opentype"),
+    /* Open Type Font */ url("../public/Raleway/Raleway-ExtraBold.svg") format("svg"),
+    /* Legacy iOS */ url("../public/Raleway/Raleway-ExtraBold.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("../public/Raleway/Raleway-ExtraBold.woff")
+      format("woff"),
+    /* Modern Browsers */ url("../public/Raleway/Raleway-ExtraBold.woff2")
+      format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body,
+#__next {
+  font-size: 100% !important;
+  height: 100%;
+}

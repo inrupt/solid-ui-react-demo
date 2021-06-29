@@ -19,21 +19,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { SessionProvider } from "@inrupt/solid-ui-react";
+/* istanbul ignore file */
+import { createTheme } from "@solid/lit-prism-patterns";
+import defaultTheme from "@solid/lit-prism-theme-sdk-default";
 
-/* eslint react/jsx-props-no-spreading: 0 */
-
-interface IApp {
-  Component: React.ComponentType<any>;
-  pageProps: any;
-}
-
-export default function App(props: IApp): React.ReactElement {
-  const { Component, pageProps } = props;
-
-  return (
-    <SessionProvider sessionId="react-sdk-example-project">
-      <Component {...pageProps} />
-    </SessionProvider>
-  );
-}
+export default createTheme(defaultTheme);
