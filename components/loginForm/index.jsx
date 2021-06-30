@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => createStyles(styles(theme)));
 const CONFIG = config();
 
 export default function LoginForm() {
-  const [idp, setIdp] = useState("https://inrupt.net");
+  const [idp, setIdp] = useState("https://broker.pod.inrupt.com");
   const [currentUrl, setCurrentUrl] = useState("https://localhost:3000");
   const bem = useBem(useStyles());
   const classes = useStyles();
