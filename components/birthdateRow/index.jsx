@@ -65,7 +65,7 @@ export default function BirthdateRow({ edit, setEdit }) {
       />
       {birthdate && !edit && (
         <Button
-          color={"secondary"}
+          color="secondary"
           onClick={() => removeBirthdate()}
           className={styles.deleteButton}
         >
@@ -79,3 +79,11 @@ export default function BirthdateRow({ edit, setEdit }) {
     </Button>
   );
 }
+BirthdateRow.propTypes = {
+  edit: null,
+  setEdit: null,
+};
+BirthdateRow.defaultProps = {
+  edit: null,
+  setEdit: null,
+};
