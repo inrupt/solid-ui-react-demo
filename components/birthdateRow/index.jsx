@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => createStyles(styles(theme)));
 export default function BirthdateRow({ edit, setEdit }) {
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
   const datasetUrl = getSourceUrl(dataset);
-  const { fetch } = useSession();
+  const { fetchSession } = useSession();
   const { thing } = useThing(datasetUrl);
   const birthdate = thing && getDatetime(thing, VCARD.bday);
   const classes = useStyles();
@@ -53,7 +53,7 @@ export default function BirthdateRow({ edit, setEdit }) {
       removeDatetime(thing, VCARD.bday, birthdate)
     );
     const savedDataset = await saveSolidDatasetAt(datasetUrl, newProfile, {
-      fetch,
+      fetchSession,
     });
     setDataset(savedDataset);
   }

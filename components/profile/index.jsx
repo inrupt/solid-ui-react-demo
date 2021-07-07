@@ -25,12 +25,10 @@ import {
   useSession,
   CombinedDataProvider,
   Image,
-  LogoutButton,
   Text,
 } from "@inrupt/solid-ui-react";
 
 import {
-  Box,
   Button,
   Card,
   CardActions,
