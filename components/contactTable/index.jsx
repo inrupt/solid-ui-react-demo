@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => createStyles(styles(theme)));
 export default function ContactTable({ edit, property }) {
   const [newContactType, setNewContactType] = useState(VCARD.Home.value);
   const [newContactValue, setNewContactValue] = useState("");
-  const { fetch } = useSession();
+  const { fetchSession } = useSession();
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
   const { thing: profile } = useThing();
   const contactDetailUrls = getUrlAll(profile, property);
@@ -72,7 +72,7 @@ export default function ContactTable({ edit, property }) {
     const savedDataset = await saveSolidDatasetAt(
       getSourceUrl(datasetToUpdate),
       setThing(datasetToUpdate, newThing),
-      { fetch }
+      { fetchSession }
     );
     setDataset(savedDataset);
   };
@@ -200,3 +200,12 @@ export default function ContactTable({ edit, property }) {
     </>
   );
 }
+
+ContactTable.propTypes = {
+  edit: null,
+  property: null,
+};
+ContactTable.defaultProps = {
+  edit: null,
+  property: null,
+};

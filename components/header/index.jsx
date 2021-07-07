@@ -31,10 +31,8 @@ import Link from "next/link";
 import { useSession, LogoutButton } from "@inrupt/solid-ui-react";
 import LoginForm from "../loginForm";
 import styles from "./styles";
-import config from "../../config";
 
 const useStyles = makeStyles((theme) => createStyles(styles(theme)));
-const CONFIG = config();
 
 export const TESTCAFE_ID_HEADER_LOGO = "header-banner-logo";
 
