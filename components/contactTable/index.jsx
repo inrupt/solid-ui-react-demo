@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Inrupt Inc.
+ * Copyright 2021 Inrupt Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal in
@@ -33,8 +33,6 @@ import {
   saveSolidDatasetAt,
   setThing,
   setUrl,
-  Url,
-  UrlString,
 } from "@inrupt/solid-client";
 import {
   DatasetContext,
@@ -51,15 +49,13 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import styles from "./contactTable.module.css";
+import { makeStyles, createStyles } from "@inrupt/prism-react-components";
 
-export default function ContactTable({
-  edit,
-  property,
-}: {
-  edit: boolean;
-  property: Url | UrlString;
-}): React.ReactElement {
+import styles from "./styles";
+
+const useStyles = makeStyles((theme) => createStyles(styles(theme)));
+
+export default function ContactTable({ edit, property }) {
   const [newContactType, setNewContactType] = useState(VCARD.Home.value);
   const [newContactValue, setNewContactValue] = useState("");
   const { fetch } = useSession();
@@ -70,6 +66,7 @@ export default function ContactTable({
     dataset,
     thing: getThing(dataset, url),
   }));
+  const classes = useStyles();
 
   const saveHandler = async (newThing, datasetToUpdate) => {
     const savedDataset = await saveSolidDatasetAt(
@@ -128,7 +125,7 @@ export default function ContactTable({
 
   return (
     <>
-      <Table things={contactDetailThings} className={styles.table}>
+      <Table things={contactDetailThings} className={classes.table}>
         <TableColumn
           property={RDF.type.value}
           body={({ value }) => {
@@ -176,7 +173,7 @@ export default function ContactTable({
       {edit && (
         <>
           <Typography gutterBottom>Add new contact</Typography>
-          <Box className={styles.newContactFields}>
+          <Box className={classes.newContactFields}>
             <TextField
               select
               label="Type"

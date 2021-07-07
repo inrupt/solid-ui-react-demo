@@ -18,3 +18,12 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+import packageJson from "./package";
+
+export default () => ({
+  libraryRepoUrl: packageJson.repository.url,
+  demoRepoUrl: packageJson.repository.demo,
+  copyright: "Copyright 2021 Inrupt, Inc.",
+  demoTitle: "Test react SDK project",
+  demoDescription: "An example project using the inrupt react SDK",
+});

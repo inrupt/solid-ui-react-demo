@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Inrupt Inc.
+ * Copyright 2021 Inrupt Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal in
@@ -47,20 +47,13 @@ import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
 import ContactTable from "../contactTable";
 import BirthdateRow from "../birthdateRow";
 
-export default function LoginForm(): React.ReactElement {
+export default function LoginForm() {
   const { session } = useSession();
   const { webId } = session.info;
   const [editing, setEditing] = useState(false);
 
   return (
     <Container fixed>
-      <Box style={{ marginBottom: 16, textAlign: "right" }}>
-        <LogoutButton>
-          <Button variant="contained" color="primary">
-            Log&nbsp;out
-          </Button>
-        </LogoutButton>
-      </Box>
       <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
         <Card style={{ maxWidth: 480 }}>
           <CardActionArea

@@ -18,3 +18,24 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+import { createStyles } from "@solid/lit-prism-patterns";
+
+const styles = (theme) =>
+  createStyles(theme, ["appLayout", "headerBanner", "icons"], {
+    table: {
+      textAlign: "left",
+      width: "100%",
+      marginBottom: "16px",
+    },
+    "table tr td:last-child": {
+      textAlign: "right",
+    },
+    newContactFields: {
+      display: "flex",
+      alignItems: "baseline",
+      justifyContent: "space-between",
+    },
+  });
+
+export default styles;

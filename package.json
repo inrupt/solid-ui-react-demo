@@ -1,32 +1,43 @@
 {
   "name": "test-react-sdk-project",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inrupt/solid-ui-react-example-project.git",
+    "demo": "https://solid-ui-react-example.docs.inrupt.com"
+  },
   "scripts": {
-    "dev": "node server.js",
+    "audit": "npm audit --audit-level=moderate",
+    "audit-licenses": "license-checker --production --failOn \"AGPL-1.0-only; AGPL-1.0-or-later; AGPL-3.0-only; AGPL-3.0-or-later; Beerware; CC-BY-NC-1.0; CC-BY-NC-2.0; CC-BY-NC-2.5; CC-BY-NC-3.0; CC-BY-NC-4.0; CC-BY-NC-ND-1.0; CC-BY-NC-ND-2.0; CC-BY-NC-ND-2.5; CC-BY-NC-ND-3.0; CC-BY-NC-ND-4.0; CC-BY-NC-SA-1.0; CC-BY-NC-SA-2.0; CC-BY-NC-SA-2.5; CC-BY-NC-SA-3.0; CC-BY-NC-SA-4.0; CPAL-1.0; EUPL-1.0; EUPL-1.1; EUPL-1.1;  GPL-1.0-only; GPL-1.0-or-later; GPL-2.0-only;  GPL-2.0-or-later; GPL-3.0; GPL-3.0-only; GPL-3.0-or-later; SISSL;  SISSL-1.2; WTFPL\"",
     "build": "next build",
-    "lint": "eslint pages components",
+    "dev": "next dev",
+    "ci": "npm run lint && npm run test",
+    "lint": "eslint pages --ext .js,.jsx",
     "start": "next start"
   },
   "dependencies": {
     "@inrupt/lit-generated-vocab-common": "^0.3.11",
-    "@inrupt/solid-client": "^1.7.0",
+    "@inrupt/prism-react-components": "^0.13.1-alpha.2",
     "@inrupt/solid-ui-react": "^2.3.1",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
+    "@inrupt/solid-client": "^1.7.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@solid/lit-prism-patterns": "^0.13.1-alpha.2",
+    "@solid/lit-prism-theme-sdk-default": "^0.13.1-alpha.2",
     "@solid/lit-term": "^0.4.1",
     "next": "^11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@inrupt/eslint-config-base": "0.0.4",
-    "@inrupt/eslint-config-react": "0.0.4",
-    "@types/node": "^14.10.1",
-    "@types/react": "^16.9.49",
+    "@inrupt/eslint-config-base": "^0.2.0-alpha.1",
+    "@inrupt/eslint-config-react": "^0.2.0-alpha.1",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^6.11.0",
@@ -35,9 +46,10 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-license-header": "^0.2.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.1.1",
-    "typescript": "^4.0.2"
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^5.1.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
   }
 }
