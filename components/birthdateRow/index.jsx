@@ -18,7 +18,9 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import { useContext } from "react";
+import PropTypes from "prop-types";
 import {
   useThing,
   useSession,
@@ -63,7 +65,7 @@ export default function BirthdateRow({ edit, setEdit }) {
       <Value
         property={VCARD.bday}
         dataType="datetime"
-        inputProps={{ name: "birthdate-input" }}
+        inputProps={{ id: "birthdate-input", name: "birthdate-input" }}
         edit={edit}
         autosave
       />
@@ -84,10 +86,9 @@ export default function BirthdateRow({ edit, setEdit }) {
   );
 }
 BirthdateRow.propTypes = {
-  edit: null,
-  setEdit: null,
+  edit: PropTypes.bool,
+  setEdit: PropTypes.func.isRequired,
 };
 BirthdateRow.defaultProps = {
-  edit: null,
-  setEdit: null,
+  edit: false,
 };

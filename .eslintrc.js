@@ -9,4 +9,4 @@ module.exports = {
     "import/no-unresolved": 0,
     "no-shadow": 0,
   },
-}
+};

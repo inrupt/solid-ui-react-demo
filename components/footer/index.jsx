@@ -43,4 +43,6 @@ const footerTexts = [
   },
 ];
 
-export default () => <Footer texts={footerTexts} links={footerLinks} />;
+export default function Index() {
+  return <Footer texts={footerTexts} links={footerLinks} />;
+}

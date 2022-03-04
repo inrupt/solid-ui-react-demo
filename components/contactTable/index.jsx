@@ -20,6 +20,7 @@
  */
 
 import { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { RDF, VCARD } from "@inrupt/lit-generated-vocab-common";
 import { getLocalStore, LitTermRegistry } from "@solid/lit-term";
 import {
@@ -202,10 +203,9 @@ export default function ContactTable({ edit, property }) {
 }
 
 ContactTable.propTypes = {
-  edit: null,
-  property: null,
+  edit: PropTypes.bool,
+  property: PropTypes.string.isRequired,
 };
 ContactTable.defaultProps = {
-  edit: null,
-  property: null,
+  edit: false,
 };

@@ -40,7 +40,7 @@ const navLinks = [
 
 const useStyles = makeStyles(() => createStyles(appLayout.styles(theme)));
 
-export default () => {
+export default function Nav() {
   const bem = useBem(useStyles());
 
   return (
@@ -48,4 +48,4 @@ export default () => {
       <MainNav links={navLinks} />;
     </div>
   );
-};
+}
