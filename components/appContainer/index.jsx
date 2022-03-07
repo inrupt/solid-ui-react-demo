@@ -51,7 +51,7 @@ const jss = create(preset());
 const useStyles = makeStyles(() => createStyles(appLayout.styles(theme)));
 
 /* eslint react/prop-types: 0 */
-function AppContainer({ children }) {
+export default function AppContainer({ children }) {
   const bem = useBem(useStyles());
 
   return (
@@ -81,5 +81,3 @@ function AppContainer({ children }) {
     </SessionProvider>
   );
 }
-
-export default AppContainer;
